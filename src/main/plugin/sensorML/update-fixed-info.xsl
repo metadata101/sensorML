@@ -3,7 +3,8 @@
 <xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:xlink="http://www.w3.org/1999/xlink" 
-	xmlns:gml="http://www.opengis.net/gml"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:gco="http://www.isotc211.org/2005/gco"
 	xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
 	xmlns:swe="http://www.opengis.net/swe/1.0.1"
 	>

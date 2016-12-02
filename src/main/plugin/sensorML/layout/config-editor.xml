@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor xmlns:sml="http://www.opengis.net/sensorML/1.0.1"
+	xmlns:swe="http://www.opengis.net/swe/1.0.1" 
+	xmlns:gml="http://www.opengis.net/gml" 
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xsi:noNamespaceSchemaLocation="../../../../../../config-editor.xsd"
+	xmlns:gn="http://www.fao.org/geonetwork"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://www.opengis.net/sensorML/1.0.1/sensorML.xsd http://www.opengis.net/swe/1.0.1 http://www.opengis.net/swe/1.0.1/swe.xsd http://www.opengis.net/gml http://schemas.opengis.org/gml/3.1.1/base/gml.xsd http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink/xlinks.xsd">
+
+	<fields>
+	</fields>
+
+	<fieldsWithFieldset>
+	</fieldsWithFieldset>
+
+	<multilingualFields>
+	</multilingualFields>
+
+
+	<!-- View configuration -->
+	<views>
+	
+		<view name="advanced">
+			<tab id="member" default="true">
+        <section xpath="/sml:SensorML">
+        </section>
+ 			</tab>
+    </view>
+    
+ 		<view name="xml">
+			<tab id="xml" default="true" />
+		</view>
+	</views>
+</editor>

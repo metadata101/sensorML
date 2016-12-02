@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sml:SensorML xmlns:sml="http://www.opengis.net/sensorML/1.0.1" xmlns:swe="http://www.opengis.net/swe/1.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0.1" xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://www.opengis.net/sensorML/1.0.1/sensorML.xsd http://www.opengis.net/swe/1.0.1 http://www.opengis.net/swe/1.0.1/swe.xsd http://www.opengis.net/gml http://schemas.opengis.org/gml/3.1.1/base/gml.xsd http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink/xlinks.xsd">
+<sml:SensorML 
+xmlns:sml="http://www.opengis.net/sensorML/1.0.1" 
+xmlns:swe="http://www.opengis.net/swe/1.0.1" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:gml="http://www.opengis.net/gml" 
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+version="1.0.1" 
+xsi:schemaLocation="http://www.opengis.net/sensorML/1.0.1 http://www.opengis.net/sensorML/1.0.1/sensorML.xsd http://www.opengis.net/swe/1.0.1 http://www.opengis.net/swe/1.0.1/swe.xsd http://www.opengis.net/gml http://schemas.opengis.org/gml/3.1.1/base/gml.xsd http://www.w3.org/1999/xlink http://www.w3.org/1999/xlink/xlinks.xsd">
 			<sml:member>
 					<sml:System>
 								<gml:description>OGC SensorML Template: Includes deployment site/platform information with sensors for deployment/site</gml:description>
