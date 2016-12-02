@@ -4,7 +4,7 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:gml="http://www.opengis.net/gml"
   xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:tr="java:org.fao.geonet.services.metadata.format.SchemaLocalizations"
+  xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations"
   xmlns:gn-fn-render="http://geonetwork-opensource.org/xsl/functions/render"
   xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
   xmlns:gn-fn-sensorML="http://geonetwork-opensource.org/xsl/functions/profiles/sensorML"
@@ -42,14 +42,14 @@
 
   <!-- Specific schema rendering -->
   <xsl:template mode="getMetadataTitle" match="sml:SensorML">
-    <xsl:for-each select="sml:member/sml:System/gml:name">
-      <xsl:value-of select="string(.)"/>
+    <xsl:for-each select="sml:IdentifierList/sml:identifier[@name='siteFullName']">
+      <xsl:value-of select="string(.)" />
     </xsl:for-each>
   </xsl:template>
 
   <xsl:template mode="getMetadataAbstract" match="sml:SensorML">
     <xsl:for-each select="sml:member/sml:System/gml:description">
-      <xsl:value-of select="string(.)"/>
+      <xsl:value-of select="string(.)" />
     </xsl:for-each>
   </xsl:template>
 
@@ -63,12 +63,14 @@
        gco:Date|gco:DateTime|*/@codeListValue]"
     priority="50">
     <xsl:param name="fieldName" select="''" as="xs:string" />
+
+
     <dl>
       <dt>
         <xsl:value-of
           select="if ($fieldName)
                                 then $fieldName
-                                else name()" />
+                                else tr:node-label(tr:create($schema), name(), null)" />
       </dt>
       <dd>
         <xsl:apply-templates mode="render-value"
@@ -88,7 +90,7 @@
         <xsl:value-of
           select="if ($fieldName)
                                 then $fieldName
-                                else name()" />
+                                else tr:node-label(tr:create($schema), name(), null)" />
       </dt>
       <dd>
         <xsl:apply-templates mode="render-value"
@@ -108,7 +110,7 @@
 
     <div class="entry name">
       <h3>
-        <xsl:value-of select="name()" />
+        <xsl:value-of select="tr:node-label(tr:create($schema), name(), null)" />
         <xsl:apply-templates mode="render-value"
           select="@*" />
       </h3>
@@ -126,7 +128,7 @@
     priority="100">
     <dl>
       <dt>
-        <xsl:value-of select="name()" />
+        <xsl:value-of select="tr:node-label(tr:create($schema), name(), null)" />
       </dt>
       <dd>
         <xsl:apply-templates mode="render-value"
@@ -155,7 +157,7 @@
       <dl class="gn-md-associated-resources">
         <dt>
           <xsl:value-of
-            select="name()" />
+            select="tr:node-label(tr:create($schema), name(), null)" />
         </dt>
         <dd>
           <ul>
@@ -188,7 +190,7 @@
   <!-- ########################## -->
   <!-- Render values for text ... -->
   <xsl:template mode="render-value" match="*[gco:CharacterString]">
-      <xsl:value-of select="string(.)"/>
+    <xsl:value-of select="string(.)" />
   </xsl:template>
 
   <xsl:template mode="render-value"
@@ -246,12 +248,16 @@
   <xsl:template mode="render-value" match="@codeListValue">
     <xsl:variable name="id" select="." />
     <xsl:variable name="codelistTranslation"
-      select="name()" />
+      select="tr:codelist-value-label(
+                            tr:create($schema),
+                            parent::node()/local-name(), $id)" />
     <xsl:choose>
       <xsl:when test="$codelistTranslation != ''">
 
         <xsl:variable name="codelistDesc"
-          select="name()" />
+          select="tr:codelist-value-desc(
+                            tr:create($schema),
+                            parent::node()/local-name(), $id)" />
         <span title="{$codelistDesc}">
           <xsl:value-of select="$codelistTranslation" />
         </span>
@@ -260,6 +266,36 @@
         <xsl:value-of select="$id" />
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template mode="render-field" match="swe:Envelope"> <!-- |swe:Position -->
+  
+    <xsl:variable name="west" select="min(
+          */swe:Vector/swe:coordinate[@name='easting']/swe:Quantity/swe:value)" />
+
+    <xsl:variable name="east" select="max(
+          */swe:Vector/swe:coordinate[@name='easting']/swe:Quantity/swe:value)" />
+
+    <xsl:variable name="south" select="min(
+          */swe:Vector/swe:coordinate[@name='northing']/swe:Quantity/swe:value)" />
+
+    <xsl:variable name="north" select="max(
+          */swe:Vector/swe:coordinate[@name='northing']/swe:Quantity/swe:value)" />
+
+    <dl>
+      <dt>
+        <xsl:value-of
+          select="tr:node-label(tr:create($schema), name(), null)" />
+      </dt>
+      <dd>
+        <xsl:copy-of
+          select="gn-fn-render:bbox(
+                            $west,
+                            $south,
+                            $east,
+                            $north)" />
+      </dd>
+    </dl>
   </xsl:template>
 
 

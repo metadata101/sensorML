@@ -23,8 +23,7 @@
 	
 		<view name="advanced">
 			<tab id="member" default="true">
-        <section xpath="/sml:SensorML">
-        </section>
+        <section xpath="/sml:SensorML"></section>
  			</tab>
     </view>
     
