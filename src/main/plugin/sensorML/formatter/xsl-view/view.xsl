@@ -54,9 +54,11 @@
   </xsl:template>
 
 
+
+  
   <!-- Most of the elements are ... -->
   <xsl:template mode="render-field"
-    match="*[gco:Integer|gco:Decimal|
+    match="*[gco:Integer|gco:Decimal|gml:name|
        gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|
        gco:Angle|gco:Scale|gco:Record|gco:RecordType|
        gco:LocalName|gml:beginPosition|gml:endPosition|
@@ -192,9 +194,9 @@
   <xsl:template mode="render-value" match="*[gco:CharacterString]">
     <xsl:value-of select="string(.)" />
   </xsl:template>
-
+  
   <xsl:template mode="render-value"
-    match="gco:Integer|gco:Decimal|
+    match="gco:Integer|gco:Decimal|gml:name|
        gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|gco:Angle|
        gco:Scale|gco:Record|gco:RecordType|
        gco:LocalName|gml:beginPosition|gml:endPosition">
@@ -219,6 +221,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+  
 
   <!-- ... Dates - formatting is made on the client side by the directive -->
   <xsl:template mode="render-value" match="gco:Date[matches(., '[0-9]{4}')]">
