@@ -42,7 +42,13 @@
 
   <!-- Specific schema rendering -->
   <xsl:template mode="getMetadataTitle" match="sml:SensorML">
-    <xsl:for-each select="sml:IdentifierList/sml:identifier[@name='siteFullName']">
+    <xsl:for-each
+      select="sml:member/sml:System/sml:identification/sml:IdentifierList/sml:identifier[@name='siteFullName']">
+      <xsl:value-of select="string(.)" />
+    </xsl:for-each>
+    <br/>
+    <xsl:for-each
+      select="sml:member/sml:System/sml:identification/sml:IdentifierList/sml:identifier[@name='siteShortName']">
       <xsl:value-of select="string(.)" />
     </xsl:for-each>
   </xsl:template>
@@ -53,9 +59,19 @@
     </xsl:for-each>
   </xsl:template>
 
+  <xsl:template mode="getMetadataHeader" match="sml:SensorML">
+    <div class="alert alert-info">
+      <p>
+        <xsl:for-each select="sml:member/sml:System/gml:description">
+          <xsl:value-of select="string(.)" />
+        </xsl:for-each>
+      </p>
+    </div>
+  </xsl:template>
 
 
-  
+
+
   <!-- Most of the elements are ... -->
   <xsl:template mode="render-field"
     match="*[gco:Integer|gco:Decimal|gml:name|
@@ -194,7 +210,7 @@
   <xsl:template mode="render-value" match="*[gco:CharacterString]">
     <xsl:value-of select="string(.)" />
   </xsl:template>
-  
+
   <xsl:template mode="render-value"
     match="gco:Integer|gco:Decimal|gml:name|
        gco:Boolean|gco:Real|gco:Measure|gco:Length|gco:Distance|gco:Angle|
@@ -221,7 +237,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
 
   <!-- ... Dates - formatting is made on the client side by the directive -->
   <xsl:template mode="render-value" match="gco:Date[matches(., '[0-9]{4}')]">
@@ -272,23 +288,26 @@
   </xsl:template>
 
   <xsl:template mode="render-field" match="swe:Envelope"> <!-- |swe:Position -->
-  
-    <xsl:variable name="west" select="min(
+
+    <xsl:variable name="west"
+      select="min(
           */swe:Vector/swe:coordinate[@name='easting']/swe:Quantity/swe:value)" />
 
-    <xsl:variable name="east" select="max(
+    <xsl:variable name="east"
+      select="max(
           */swe:Vector/swe:coordinate[@name='easting']/swe:Quantity/swe:value)" />
 
-    <xsl:variable name="south" select="min(
+    <xsl:variable name="south"
+      select="min(
           */swe:Vector/swe:coordinate[@name='northing']/swe:Quantity/swe:value)" />
 
-    <xsl:variable name="north" select="max(
+    <xsl:variable name="north"
+      select="max(
           */swe:Vector/swe:coordinate[@name='northing']/swe:Quantity/swe:value)" />
 
     <dl>
       <dt>
-        <xsl:value-of
-          select="tr:node-label(tr:create($schema), name(), null)" />
+        <xsl:value-of select="tr:node-label(tr:create($schema), name(), null)" />
       </dt>
       <dd>
         <xsl:copy-of
