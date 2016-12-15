@@ -35,11 +35,44 @@
 					<Field name="identifier" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
 				</xsl:for-each>
 	
-				<xsl:for-each select="sml:IdentifierList/sml:identifier[@name='siteFullName']">
-					<Field name="title" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
-					<!-- not tokenized title for sorting -->
-					<Field name="_title" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
-				</xsl:for-each>
+	      <xsl:choose>
+         <xsl:when test="../gml:name">
+           <xsl:for-each select="../gml:name">
+              <Field name="title" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
+              <!-- not tokenized title for sorting -->
+              <Field name="_title" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
+            </xsl:for-each>
+         </xsl:when>
+         <xsl:when test="sml:IdentifierList/sml:identifier[@name='siteFullName']">
+           <xsl:for-each select="sml:IdentifierList/sml:identifier[@name='siteFullName']">
+              <Field name="title" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
+              <!-- not tokenized title for sorting -->
+              <Field name="_title" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
+            </xsl:for-each>
+         </xsl:when>
+         <xsl:when test="sml:IdentifierList/sml:identifier[@name='siteShortName']">
+           <xsl:for-each select="sml:IdentifierList/sml:identifier[@name='siteShortName']">
+              <Field name="title" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
+              <!-- not tokenized title for sorting -->
+              <Field name="_title" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
+            </xsl:for-each>
+         </xsl:when>
+         <xsl:when test="sml:IdentifierList/sml:identifier[@name='stationName']">
+           <xsl:for-each select="sml:IdentifierList/sml:identifier[@name='stationName']">
+              <Field name="title" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
+              <!-- not tokenized title for sorting -->
+              <Field name="_title" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
+            </xsl:for-each>
+         </xsl:when>
+	       <xsl:otherwise>
+           <xsl:for-each select="sml:IdentifierList/sml:identifier">
+              <Field name="title" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
+              <!-- not tokenized title for sorting -->
+              <Field name="_title" string="{normalize-space(string(.))}" store="true" index="true" token="false"/>
+            </xsl:for-each>
+	       </xsl:otherwise>
+	      </xsl:choose>
+				
 
 				<xsl:for-each select="sml:IdentifierList/sml:identifier[@name='siteShortName']">
 					<Field name="altTitle" string="{normalize-space(string(.))}" store="true" index="true" token="true"/>
