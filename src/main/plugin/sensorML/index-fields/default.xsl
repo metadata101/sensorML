@@ -172,6 +172,16 @@
 				<Field name="topicCat" string="{string(.)}" store="true" index="true" token="false"/>
 			</xsl:for-each>
 
+
+      <xsl:for-each select="sml:System/sml:classification/sml:ClassifierList/sml:classifier[@name='sensorType']/sml:Term/sml:value">
+          <Field name="type" string="{string(.)}" store="false" index="true"/>
+      </xsl:for-each>
+      
+      <xsl:for-each select="sml:System/sml:classification/sml:ClassifierList/sml:classifier[@name='parentNetwork']/sml:Term/sml:value">
+          <Field name="type" string="{string(.)}" store="false" index="true"/>
+      </xsl:for-each>
+
+
 			<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	
 		</xsl:for-each>
